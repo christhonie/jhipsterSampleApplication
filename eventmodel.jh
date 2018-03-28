@@ -1,0 +1,32 @@
+entity Event {
+	name String required
+    start Instant,
+    end Instant
+}
+
+entity EventCategory {
+	name String required
+    minAge Integer
+    maxAge Integer
+    gender Gender
+    event Event
+}
+
+enum Gender {
+    MALE, FEMALE, UNKNOWN
+}
+
+relationship ManyToOne {
+	EventCategory{category} to Event{event}
+}
+
+// Set pagination options
+paginate Event with infinite-scroll
+paginate EventCategory with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with mySuffix
